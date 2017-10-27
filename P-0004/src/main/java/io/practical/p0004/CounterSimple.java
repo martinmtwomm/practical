@@ -4,8 +4,8 @@ public class CounterSimple implements Runnable {
 
 	private int count;
 
-	public CounterSimple(int count) {
-		this.count = count;
+	public CounterSimple() {
+		
 	}
 
 	void increment() {
