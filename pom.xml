@@ -9,6 +9,8 @@
 
 
 	<modules>
+		<module>P-0001</module>
+		<module>P-0002</module>
 		<module>P-0003</module>
 		<module>P-0004</module>
 		<module>P-0005</module>
