@@ -19,6 +19,7 @@
 
 	<properties>
 		<org.openjdk.jmh.version>1.19</org.openjdk.jmh.version>
+		<tiny-async.version>1.11.0</tiny-async.version>
 	</properties>
 
 	<dependencies>

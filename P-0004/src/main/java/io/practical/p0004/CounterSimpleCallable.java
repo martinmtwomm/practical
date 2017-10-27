@@ -4,14 +4,13 @@ import java.util.concurrent.Callable;
 
 public class CounterSimpleCallable implements Callable<Integer> {
 
-	private int count;
+	private int count=0;
 
-	public CounterSimpleCallable(int count) {
-		this.count = count;
+	public CounterSimpleCallable() {
 	}
 	
 	
-	private void increment() {
+	private synchronized void increment() {
 		count++;
 	}
 
