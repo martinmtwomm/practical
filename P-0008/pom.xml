@@ -15,30 +15,72 @@
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.helger.maven/ph-schematron-maven-plugin -->
+		<dependency>
+			<groupId>com.helger.maven</groupId>
+			<artifactId>ph-schematron-maven-plugin</artifactId>
+			<version>4.3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>${org.openjdk.jmh.version}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>${org.openjdk.jmh.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
 			<version>9.8.0-5</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.thaiopensource/jing -->
+		<dependency>
+			<groupId>com.thaiopensource</groupId>
+			<artifactId>jing</artifactId>
+			<version>20091111</version>
+		</dependency>
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-schematron-validator</artifactId>
+			<version>4.3.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.helger/ph-commons -->
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-commons</artifactId>
+			<version>8.6.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-schematron</artifactId>
+			<version>4.3.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- <plugin> <groupId>com.helger.maven</groupId> <artifactId>ph-sch2xslt-maven-plugin</artifactId> 
+				<version>4.3.4</version> <executions> <execution> <goals> <goal>convert</goal> 
+				</goals> </execution> </executions> </plugin> -->
+			<!-- <plugin> <groupId>com.helger.maven</groupId> <artifactId>ph-schematron-maven-plugin</artifactId> 
+				<version>4.3.4</version> <executions> <execution> <goals> <goal>validate</goal> 
+				</goals> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<version>3.3.2</version>
-				<executions>
-					<execution>
-						<id>process</id>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
+				<!-- <executions> <execution> <id>process</id> <goals> <goal>process</goal> 
+					</goals> <phase>generate-sources</phase> </execution> </executions> -->
 				<dependencies>
 					<dependency>
 						<groupId>org.openjdk.jmh</groupId>
@@ -47,6 +89,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>
