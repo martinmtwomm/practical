@@ -11,13 +11,6 @@ import org.openjdk.jmh.annotations.Benchmark;
 
 public class MyFirstBenchmark {
 
-	// @Benchmark
-	// public void testMethod() {
-	// for (int i = 0; i < 100 ; i++) {
-	// Math.log(i);
-	// }
-	// }
-
 	@Benchmark
 	public void testMethod0() {
 
@@ -34,6 +27,7 @@ public class MyFirstBenchmark {
 			number++;
 		}
 	}
+
 	@Benchmark
 	public void testMethod1() {
 
