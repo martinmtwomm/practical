@@ -9,7 +9,11 @@
 	<artifactId>P-0006</artifactId>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.7.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>
 			<artifactId>jmh-core</artifactId>
@@ -30,7 +34,7 @@
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<version>3.3.2</version>
-				<executions>
+				<!-- <executions>
 					<execution>
 						<id>process</id>
 						<goals>
@@ -38,7 +42,7 @@
 						</goals>
 						<phase>generate-sources</phase>
 					</execution>
-				</executions>
+				</executions> -->
 				<dependencies>
 					<dependency>
 						<groupId>org.openjdk.jmh</groupId>

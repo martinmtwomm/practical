@@ -1,4 +1,4 @@
-package io.practical.p0005;
+package io.practical.p0005.util;
 
 import java.lang.reflect.Field;
 import java.security.AccessController;

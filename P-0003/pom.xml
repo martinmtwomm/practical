@@ -23,7 +23,11 @@
 			<artifactId>jmh-generator-annprocess</artifactId>
 			<version>${org.openjdk.jmh.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.7.0</version>
+		</dependency>
 	</dependencies>
 
 
@@ -33,15 +37,8 @@
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<version>3.3.2</version>
-				<!-- <executions>
-					<execution>
-						<id>process</id>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions> -->
+				<!-- <executions> <execution> <id>process</id> <goals> <goal>process</goal> 
+					</goals> <phase>generate-sources</phase> </execution> </executions> -->
 				<dependencies>
 					<dependency>
 						<groupId>org.openjdk.jmh</groupId>
