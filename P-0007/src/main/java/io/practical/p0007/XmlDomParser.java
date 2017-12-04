@@ -18,15 +18,16 @@ public class XmlDomParser {
 		DocumentBuilder dBuilder;
 
 		Document doc;
+
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(resource);
 			doc.getDocumentElement().normalize();
-		} catch (SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

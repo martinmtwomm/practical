@@ -17,7 +17,10 @@
 		<module>P-0006</module>
 		<module>P-0007</module>
 		<module>P-0008</module>
+		
+		
 		<module>P-0009</module>
+		<module>P-0009_maven-multi-parent</module>
 	</modules>
 
 	<properties>

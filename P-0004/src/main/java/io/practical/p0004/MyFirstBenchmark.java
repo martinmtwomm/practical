@@ -1,161 +1,185 @@
 package io.practical.p0004;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 
+import counter.thread.CounterThread;
+import counter.thread.CounterThreadMethodSynchronized;
+import io.practical.p0004.counter.impl.Counter0Simple;
+import io.practical.p0004.counter.impl.Counter1SynchronizedBlock;
+import io.practical.p0004.counter.impl.Counter2MethodSynchronized;
+import io.practical.p0004.counter.impl.Counter3ReentrantLock;
+import io.practical.p0004.counter.impl.Counter4Atomic;
+
+@State(Scope.Thread)
 public class MyFirstBenchmark {
+	
 
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSimple() {
-//		int count = 0;
-//
-//		CounterSimple counter = new CounterSimple(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			executorService.execute(counter);
-//		}
-//		executorService.shutdown();
-//	}
+	private static final int INCREMENTS = 1_000_000;
 
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSyncMethod() {
-//		int count = 0;
-//
-//		CounterSynchronized counter = new CounterSynchronized(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			executorService.execute(counter);
-//		}
-//		executorService.shutdown();
-//	}
-//
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSyncBlock() {
-//		int count = 0;
-//
-//		CounterSynchronizedBlock counter = new CounterSynchronizedBlock(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			executorService.execute(counter);
-//		}
-//		executorService.shutdown();
-//	}
-//
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodReentrantLock() {
-//
-//		int count = 0;
-//		CounterReentrantLock counter = new CounterReentrantLock(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			executorService.execute(counter);
-//		}
-//
-//		executorService.shutdown();
-//	}
-//
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSimpleCallable() {
-//		int count = 0;
-//
-//		List<Future<Integer>> list = new ArrayList<Future<Integer>>();
-//
-//		Callable<Integer> counter = new CounterSimpleCallable(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			Future<Integer> future = executorService.submit(counter);
-//			list.add(future);
-//		}
-//		// print return values;
-//		// for (Future<Integer> fut : list) {
-//		// try {
-//		// System.out.println(fut.get());
-//		// } catch (InterruptedException e) {
-//		// e.printStackTrace();
-//		// } catch (ExecutionException e) {
-//		// e.printStackTrace();
-//		// }
-//		//
-//		// }
-//
-//		// try {
-//		// System.out.println(list.get(list.size()-1).get());
-//		// } catch (InterruptedException e) {
-//		// e.printStackTrace();
-//		// } catch (ExecutionException e) {
-//		// e.printStackTrace();
-//		// }
-//		// executorService.shutdown();
-//	}
-//
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSynchronizedCallable() {
-//		int count = 0;
-//
-//		List<Future<Integer>> list = new ArrayList<Future<Integer>>();
-//
-//		Callable<Integer> counter = new CounterSynchronizedCallable(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			Future<Integer> future = executorService.submit(counter);
-//			list.add(future);
-//		}
-//
-//		// try {
-//		// System.out.println(list.get(list.size()-1).get());
-//		// } catch (InterruptedException e) {
-//		// e.printStackTrace();
-//		// } catch (ExecutionException e) {
-//		// e.printStackTrace();
-//		// }
-//		executorService.shutdown();
-//	}
-//
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethodSynchronizedBlockCallable() {
-//		int count = 0;
-//
-//		List<Future<Integer>> list = new ArrayList<Future<Integer>>();
-//
-//		Callable<Integer> counter = new CounterSynchronizedBlockCallable(count);
-//		ExecutorService executorService = Executors.newFixedThreadPool(4);
-//
-//		for (int i = 0; i < 1_000_000; i++) {
-//			// execute tasks
-//			Future<Integer> future = executorService.submit(counter);
-//			list.add(future);
-//		}
-//		// try {
-//		// System.out.println(list.get(list.size()-1).get());
-//		// } catch (InterruptedException e) {
-//		// e.printStackTrace();
-//		// } catch (ExecutionException e) {
-//		// e.printStackTrace();
-//		// }
-//		executorService.shutdown();
-//	}
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void simpleCounter() {
+		Counter0Simple counter = new Counter0Simple();
+		for (int i = 0; i < INCREMENTS; i++) {
+			counter.increment();
+		}
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void synchronizedBlockCounter() {
+
+		Counter1SynchronizedBlock counter = new Counter1SynchronizedBlock();
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			counter.increment();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void synchronizedMethodCounter() {
+
+		Counter2MethodSynchronized counter = new Counter2MethodSynchronized();
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			counter.increment();
+		}
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void reentrantLockCounter() {
+		Counter3ReentrantLock counter = new Counter3ReentrantLock();
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			counter.increment();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void atomicCounter() {
+		Counter4Atomic counter = new Counter4Atomic();
+		for (int i = 0; i < INCREMENTS; i++) {
+			counter.increment();
+		}
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void simpleCounterMT() {
+
+		CountDownLatch latch = new CountDownLatch(INCREMENTS);
+		Counter0Simple counter = new Counter0Simple();
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+		for (int i = 0; i < INCREMENTS; i++) {
+
+			executorService.execute(new CounterThread(counter, latch));
+		}
+
+		try {
+			latch.await();
+			executorService.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void synchonizedBlockCounterMT() {
+
+		CountDownLatch latch = new CountDownLatch(INCREMENTS);
+		Counter1SynchronizedBlock counter = new Counter1SynchronizedBlock();
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			executorService.execute(new CounterThread(counter, latch));
+		}
+
+		try {
+			latch.await();
+			executorService.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void synchronizedMethodCounterMT() {
+
+		CountDownLatch latch = new CountDownLatch(INCREMENTS);
+		Counter2MethodSynchronized counter = new Counter2MethodSynchronized();
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			executorService.execute(new CounterThreadMethodSynchronized(counter, latch));
+		}
+
+		try {
+			latch.await();
+			executorService.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void reentrantLockCounterMT() {
+
+		CountDownLatch latch = new CountDownLatch(INCREMENTS);
+		Counter3ReentrantLock counter = new Counter3ReentrantLock();
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			executorService.execute(new CounterThread(counter, latch));
+		}
+
+		try {
+			latch.await();
+			executorService.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Benchmark
+	@OutputTimeUnit(TimeUnit.SECONDS)
+	public void atomiCounterMT() {
+
+		CountDownLatch latch = new CountDownLatch(INCREMENTS);
+		Counter4Atomic counter = new Counter4Atomic();
+		ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+		for (int i = 0; i < INCREMENTS; i++) {
+			executorService.execute(new CounterThread(counter, latch));
+		}
+
+		try {
+			latch.await();
+			executorService.shutdown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }

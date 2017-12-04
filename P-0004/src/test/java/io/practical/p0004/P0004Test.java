@@ -10,7 +10,7 @@ public class P0004Test {
 	@Test
 	public void dotest() throws Exception {
 		// @formatter:off
-		Options opt = new OptionsBuilder().include(Bench2.class.getSimpleName()).forks(1).build();
+		Options opt = new OptionsBuilder().include(MyFirstBenchmark.class.getSimpleName()).forks(1).build();
 		// @formatter:on
 
 		new Runner(opt).run();
