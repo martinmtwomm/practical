@@ -23,6 +23,20 @@ public class MyFirstBenchmark {
 	
 
 	private static final int INCREMENTS = 1_000_000;
+	
+	
+//	Benchmark                                      Mode  Cnt    Score   Error  Units
+//	MyFirstBenchmark.atomicCounterMT               thrpt   20    4.401 ± 0.075  ops/s
+//	MyFirstBenchmark.atomicCounter                thrpt   20  215.627 ± 2.163  ops/s
+//	MyFirstBenchmark.reentrantLockCounter         thrpt   20   69.315 ± 1.066  ops/s
+//	MyFirstBenchmark.reentrantLockCounterMT       thrpt   20    3.761 ± 0.130  ops/s
+//	MyFirstBenchmark.simpleCounter                thrpt   20  416.807 ± 4.306  ops/s
+//	MyFirstBenchmark.simpleCounterMT              thrpt   20    4.262 ± 0.137  ops/s
+//	MyFirstBenchmark.synchonizedBlockCounterMT    thrpt   20    3.997 ± 0.177  ops/s
+//	MyFirstBenchmark.synchronizedBlockCounter     thrpt   20  416.298 ± 3.503  ops/s
+//	MyFirstBenchmark.synchronizedMethodCounter    thrpt   20  410.813 ± 9.383  ops/s
+//	MyFirstBenchmark.synchronizedMethodCounterMT  thrpt   20    4.129 ± 0.138  ops/s
+//	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 436.586 sec
 
 	@Benchmark
 	@OutputTimeUnit(TimeUnit.SECONDS)
@@ -163,7 +177,7 @@ public class MyFirstBenchmark {
 
 	@Benchmark
 	@OutputTimeUnit(TimeUnit.SECONDS)
-	public void atomiCounterMT() {
+	public void atomicCounterMT() {
 
 		CountDownLatch latch = new CountDownLatch(INCREMENTS);
 		Counter4Atomic counter = new Counter4Atomic();
