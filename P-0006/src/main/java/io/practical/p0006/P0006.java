@@ -18,63 +18,13 @@ public class P0006 {
 	public P0006() {
 
 	}
-
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethod00() throws Exception {
-//		CountDownLatch latch = new CountDownLatch(ONE_THOUSAND_K);
-//		UnsafeCounter counter = new UnsafeCounter();
-//
-//		for (int i = 0; i < ONE_THOUSAND_K; i++) {
-//			ForkJoinPool.commonPool().execute(new CounterThread(counter, latch));
-//		}
-//
-//	}
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethod0() throws Exception {
-//		CountDownLatch latch = new CountDownLatch(ONE_THOUSAND_K);
-//		UnsafeCounter counter = new UnsafeCounter();
-//		ForkJoinPool pool = new ForkJoinPool(2);
-//		for (int i = 0; i < ONE_THOUSAND_K; i++) {
-//			pool.execute(new CounterThread(counter, latch));
-//		}
-//
-//	}
-//	
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethod1() throws Exception {
-//		CountDownLatch latch = new CountDownLatch(ONE_THOUSAND_K);
-//		UnsafeCounter counter = new UnsafeCounter();
-//		ForkJoinPool pool = new ForkJoinPool(4);
-//		for (int i = 0; i < ONE_THOUSAND_K; i++) {
-//			pool.execute(new CounterThread(counter, latch));
-//		}
-//
-//	}
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethod2() throws Exception {
-//		CountDownLatch latch = new CountDownLatch(ONE_THOUSAND_K);
-//		UnsafeCounter counter = new UnsafeCounter();
-//		ForkJoinPool pool = new ForkJoinPool(8);
-//		for (int i = 0; i < ONE_THOUSAND_K; i++) {
-//			pool.execute(new CounterThread(counter, latch));
-//		}
-//
-//	}
-//	@Benchmark
-//	@OutputTimeUnit(TimeUnit.SECONDS)
-//	public void testMethod3() throws Exception {
-//		CountDownLatch latch = new CountDownLatch(ONE_THOUSAND_K);
-//		UnsafeCounter counter = new UnsafeCounter();
-//		ForkJoinPool pool = new ForkJoinPool(16);
-//		for (int i = 0; i < ONE_THOUSAND_K; i++) {
-//			pool.execute(new CounterThread(counter, latch));
-//		}
-//
-//	}
+	
+//	Benchmark           Mode  Cnt   Score   Error  Units
+//	P0006.testMethod0  thrpt   20  44.236 ± 0.437  ops/s    -> 2 Threads
+//	P0006.testMethod1  thrpt   20  41.887 ± 0.606  ops/s	-> 4 Threads
+//	P0006.testMethod2  thrpt   20  44.050 ± 0.416  ops/s	-> 8 Threads
+//	P0006.testMethod3  thrpt   20  43.155 ± 0.348  ops/s	- 16 Threads
+//	Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 165.216 sec
 
 	@Benchmark
 	@OutputTimeUnit(TimeUnit.SECONDS)
@@ -85,7 +35,7 @@ public class P0006 {
 		for (int i = 0; i < ONE_THOUSAND_K; i++) {
 			executor.execute(new CounterThread(counter, latch));
 		}
-		executor.shutdown();
+		
 
 		try {
 			latch.await();
